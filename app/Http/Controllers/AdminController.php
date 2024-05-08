@@ -160,6 +160,16 @@ class AdminController extends Controller
       $data = Artikel::find($id);
       return view('admin.admin_view_artikel', compact('data'));
     } //End Method
+
+    public function AdminLayanan()
+    {
+      return view('admin.admin_layanan');
+    } //End Method
+
+    public function AdminPemesanan()
+    {
+      return view('admin.admin_pemesanan');
+    } //End Method
     
 
 }
