@@ -105,6 +105,13 @@ return [
         ),
     ],
 
+    'providers' => [
+      /*
+       * Package Service Providers...
+       */
+      Maatwebsite\Excel\ExcelServiceProvider::class,
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | Maintenance Mode Driver
@@ -117,7 +124,7 @@ return [
     | Supported drivers: "file", "cache"
     |
     */
-
+    
     'maintenance' => [
         'driver' => env('APP_MAINTENANCE_DRIVER', 'file'),
         'store' => env('APP_MAINTENANCE_STORE', 'database'),

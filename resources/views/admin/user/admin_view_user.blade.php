@@ -13,31 +13,31 @@
           <h4>Detail User</h4>
         </div>
           <div class="d-flex justify-content-center mt-5 mb-5 ">
-            <img class="wd-md-400 wd-300" src="{{ (!empty ($detailUser->photo)) ? url('/admin_image/' .$detailUser->photo) :url('no_image.jpg')}}" alt="profile">
+            <img class="wd-md-400 wd-300" src="{{ (!empty ($data->photo)) ? url('/admin_image_user/' .$data->photo) :url('no_image.jpg')}}" alt="profile">
           </div>
         <div class="d-flex justify-content-center gap-6 mb-5">
           <div class="">
-             <div class="mt-3">
-              <label class="tx-13 fw-bolder mb-0 text-uppercase">Username:</label>
-              <p class="text-muted">{{ $detailUser->username }}</p>
-            </div>
             <div class=" mt-3">
               <label class="tx-13 fw-bolder mb-0 text-uppercase">Email:</label>
-              <p class="text-muted">{{ $detailUser->email }}</p>
+              <p class="text-muted">{{ $data->email }}</p>
+              <div class="mt-3">
+                <label class="tx-13 fw-bolder mb-0 text-uppercase">Username:</label>
+                <p class="text-muted">{{ $data->username }}</p>
+              </div>
             </div>
             <div class=" mt-3">
               <label class="tx-13 fw-bolder mb-0 text-uppercase">Nama:</label>
-              <p class="text-muted">{{ $detailUser->name }}</p>  
+              <p class="text-muted">{{ $data->name }}</p>  
             </div>
           </div>
           <div>
             <div class="mt-3">
             <label class="tx-13 fw-bolder mb-0 text-uppercase">Nomor Telepon:</label>
-            <p class="text-muted">{{ $detailUser->phone }}</p>
+            <p class="text-muted">{{ $data->phone }}</p>
             </div>
             <div class="mt-3">
               <label class="tx-13 fw-bolder mb-0 text-uppercase">Alamat:</label>
-              <p class="text-muted">{{ $detailUser->address }}</p>
+              <p class="text-muted">{{ $data->address }}</p>
             </div>
           </div>  
           

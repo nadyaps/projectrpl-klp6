@@ -7,13 +7,11 @@
   <div class="col-md-12 grid-margin stretch-card">
     <div class="card">
       <div class="card-body">
-        <div >
-          <h4 class="mb-4">Artikel</h4>
-        </div>
-        <div class="d-flex flex-row align-items-center justify-content-between mb-4" >
+        <div class="d-flex flex-row align-items-center justify-content-between mb-3" >
+          <h4 class="mb-3">Artikel</h4>
           <a href="{{route('add.artikel')}}" type="button" class="btn btn-outline-primary btn-block btn-icon-text">
-          <i data-feather="plus" class="btn-icon-prepend"></i>
-            Tambah Artikel
+            <i data-feather="plus" class="btn-icon-prepend"></i>
+              Tambah
           </a>
         </div>
         <div class="table-responsive">
@@ -29,8 +27,8 @@
               </tr>
             </thead>
             <tbody>    
-              <tr>
               @foreach($data as $key => $item)                     
+              <tr>
                 <td>{{$item->judul}}</td>
                 <td>{{Illuminate\Support\Str::limit($item->deskripsi, $limit = 30, $end = '...')}}</td>
                 <td>{{$item->created_at}}</td>
@@ -40,12 +38,15 @@
                   <a href="{{route ('view.artikel', ['id' => $item->id]) }}" type="button" class="btn btn-primary btn-icon">
                     <i data-feather="eye"></i>
                   </a>
-                  <a href="" type="button" class="btn btn-danger btn-icon" id="delete">
+                  <a href="{{route ('edit.artikel', ['id' => $item->id]) }}" type="button" class="btn btn-secondary btn-icon">
+                    <i data-feather="edit"></i>
+                  </a>
+                  <a href="{{route ('delete.artikel', ['id' => $item->id]) }}" type="button" class="btn btn-danger btn-icon" id="delete">
                     <i data-feather="trash-2"></i>
                   </a>
                 </td>
-                @endforeach
               </tr>
+              @endforeach
             </tbody>
           </table>
         </div>

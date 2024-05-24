@@ -8,12 +8,15 @@
     <div class="card">
       <div class="card-body">
         <div >
-          <h4 class="mb-4">Users</h4>
+          <h4 class="mb-3">Users</h4>
         </div>
         <div class="d-flex flex-row align-items-center justify-content-between mb-4" >
-          <a href="" type="button" class="btn btn-outline-primary btn-block btn-icon-text">
-          <i data-feather="file-text" class="btn-icon-prepend"></i>
-            Export as Excel
+          <a href="{{route ('add.user') }}" class="btn btn-outline-primary btn-icon-text">
+            <i data-feather="plus" class="btn-icon-prepend"></i> Tambah 
+          </a>
+          <a href="{{ route('export.users') }}" type="button" class="btn btn-outline-primary btn-block btn-icon-text">
+            <i data-feather="external-link" class="btn-icon-prepend"></i>
+              Export as Excel
           </a>
         </div>
         <div class="table-responsive">

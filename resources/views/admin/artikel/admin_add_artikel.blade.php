@@ -12,7 +12,7 @@
         <div class="d-flex flex-row align-items-center justify-content-between mb-3">
           <h4>Tambah Artikel</h4>
         </div>
-        <form method="POST" action="{{route('store.artikel')}}" class="forms-sample" enctype="multipart/form-data" class="forms-sample">
+        <form method="POST" action="{{ route('update.artikel') }}" class="forms-sample" enctype="multipart/form-data" class="forms-sample">
         @csrf
           <div class="row mb-3">
             <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Judul</label>
