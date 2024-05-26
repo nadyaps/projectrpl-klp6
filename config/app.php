@@ -105,13 +105,6 @@ return [
         ),
     ],
 
-    'providers' => [
-      /*
-       * Package Service Providers...
-       */
-      Maatwebsite\Excel\ExcelServiceProvider::class,
-    ],
-
     /*
     |--------------------------------------------------------------------------
     | Maintenance Mode Driver

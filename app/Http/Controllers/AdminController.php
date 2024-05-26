@@ -11,7 +11,7 @@ use App\Models\Artikel;
 use App\Models\Layanan;
 use App\Models\Pemesanan;
 use App\Models\Harga;
-use Maatwebsite\Excel\Facades\Excel;
+// use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\UsersExport;
 
 class AdminController extends Controller
@@ -361,9 +361,9 @@ class AdminController extends Controller
     } //End Method
 
     //Export Data
-    public function UsersExport() 
-    {
-      return Excel::download(new UsersExport, 'users.xlsx');
-    }
+    // public function UsersExport() 
+    // {
+    //   return Excel::download(new UsersExport, 'users.xlsx');
+    // }
 }
 

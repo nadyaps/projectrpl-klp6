@@ -58,4 +58,3 @@ Route::middleware(['auth'])->group(function(){
 Route::get('/login', [AdminController::class, 'Adminlogin'])->name('admin.login_admin');
 Route::get('/register', [AdminController::class, 'Adminregister'])->name('admin.register_admin');
 
-require __DIR__.'/auth.php';

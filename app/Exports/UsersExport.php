@@ -1,31 +1,31 @@
 <?php
 
-namespace App\Exports;
+// namespace App\Exports;
 
-use App\Models\User;
-use Maatwebsite\Excel\Concerns\FromCollection;
-use Maatwebsite\Excel\Concerns\WithHeadings;
+// use App\Models\User;
+// use Maatwebsite\Excel\Concerns\FromCollection;
+// use Maatwebsite\Excel\Concerns\WithHeadings;
 
-class UsersExport implements FromCollection, WithHeadings
-{
-    /**
-    * @return \Illuminate\Support\Collection
-    */
-    public function collection()
-    {
-        return User::all();
-    }
-    public function headings(): array
-    {
-        return [
-            "ID",
-            "Name",
-            "Username",
-            "Phone",
-            "Alamat",
-            "Photo",
-            "Email",
-            "Role",
-        ];
-    }
-}
+// class UsersExport implements FromCollection, WithHeadings
+// {
+//     /**
+//     * @return \Illuminate\Support\Collection
+//     */
+//     public function collection()
+//     {
+//         return User::all();
+//     }
+//     public function headings(): array
+//     {
+//         return [
+//             "ID",
+//             "Name",
+//             "Username",
+//             "Phone",
+//             "Alamat",
+//             "Photo",
+//             "Email",
+//             "Role",
+//         ];
+//     }
+// }
