@@ -3,15 +3,19 @@ import { createBrowserRouter } from 'react-router-dom';
 import DefaultLayout from './components/defaultLayout';
 import Login from './views/login';
 import Register from './views/register';
-import Pemesanan from './views/pemesanan';
 import Dashboard from './views/dashboard';
 import Layanan from './views/layanan';
-import CustomerLayout from './components/customerLayout';
-import DashboardCustomer from './views/customer/dashboardCustomer';
 import DetailLayanan from './views/detailLayanan';
 import Artikel from './views/artikel';
 import DetailArtikel from './views/detailArtikel';
 import AboutUs from './views/aboutUs';
+
+import CustomerLayout from './components/customerLayout';
+import DashboardCustomer from './views/customer/dashboardCustomer';
+import LayananCustomer from './views/customer/layananCustomer'
+import ArtikelCus from './views/customer/artikelCustomer';
+import DetailLayananCustomer from './views/customer/detailLayananCus';
+import DetailArtikelCustomer from './views/customer/detailArtikelCus';
 
 const router = createBrowserRouter([
   {
@@ -47,13 +51,30 @@ const router = createBrowserRouter([
   },
 
   {
-    path: '/dashboard',
+    path: '/',
     element: <CustomerLayout />,
     children: [
       {
-        path: '',
+        path: '/dashboard',
         element: <DashboardCustomer />,
       },
+      {
+        path: '/detailLayananCus',
+        element: <DetailLayananCustomer />,
+      },
+      {
+        path: '/detailArtikelCus',
+        element: <DetailArtikelCustomer />,
+      },
+      {
+        path: '/layananCus',
+        element: <LayananCustomer />,
+      },
+      {
+        path: '/artikelCus',
+        element: <ArtikelCus />,
+      },
+
     ]
   },
 

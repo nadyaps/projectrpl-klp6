@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function DetailLayanan() {
+export default function DetailLayananCus() {
   return (
     <div className="w-full max-h-screen mt-24 md:mt-24 px-4 md:px-16 py-16 flex justify-center items-center bg-white">
       <div className="max-w-screen-xl flex flex-col md:flex-row justify-between items-center md:items-start gap-8 md:gap-16">
@@ -17,9 +17,7 @@ export default function DetailLayanan() {
           <div className="mt-8 text-center md:text-left">
             <div className="text-neutral-500 text-lg font-normal font-[BebasNeue]">Private office adalah kantor pribadi yang dirancang khusus untuk karyawan bekerja secara individu atau sharing dengan tim dalam kelompok kecil.</div>
             <div className="text-neutral-500 text-lg font-normal font-[BebasNeue] mt-4">IDR 50.000 /jam<br />IDR 1.000.000 /bulan</div>
-          </div>
-          <div className="mt-8 text-center md:text-left">
-            <a href = '/login' className="px-6 py-3 mt-10 bg-pink-400 rounded-xl text-white text-lg font-normal font-[BebasNeue] uppercase tracking-widest">Pesan sekarang</a>
+            <button className="px-6 py-3 mt-10 bg-pink-400 rounded-xl text-white text-lg font-normal font-[BebasNeue] uppercase tracking-widest">Pesan sekarang</button>
           </div>
         </div>
       </div>

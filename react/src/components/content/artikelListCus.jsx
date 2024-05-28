@@ -13,7 +13,7 @@ export default function ArtikelListCus() {
       <div className="text-center text-4xl font-[BebasNeue]">ARTIKEL</div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {artikel.map((artikel, index) => (
-        <Link to={`/detailArtikel`} key={index}>
+        <Link to={`/detailArtikelCus`} key={index}>
           <div className="bg-white rounded-3xl shadow-md cursor-pointer">
             <div className="bg-neutral-50 rounded-t-3xl overflow-hidden">
               <img className="w-full h-60 object-cover" src={artikel.image} alt="Layanan" />

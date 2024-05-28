@@ -16,11 +16,6 @@ const user = {
   imageUrl: null, // Change to null to simulate no image provided
 };
 
-const userNavigation = [
-  { name: 'Your Profile', href: '#' },
-  { name: 'Sign out', href: '#' },
-];
-
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
 }
@@ -63,16 +58,16 @@ export default function NavCus() {
         </div>
       </a>
       <div className="hidden md:flex h-full justify-center items-center space-x-6 mx-4">
-        <a className={linkClass("/")} href="/" onClick={() => handleLinkClick("/")}>
+        <a className={linkClass("/")} href="/dashboard" onClick={() => handleLinkClick("/")}>
           Home
         </a>
-        <a className={linkClass("/layanan")} href="/services" onClick={() => handleLinkClick("/layanan")}>
+        <a className={linkClass("/layanan")} href="/layananCus" onClick={() => handleLinkClick("/layanan")}>
           Layanan
         </a>
-        <a className={linkClass("/articles")} href="/articles" onClick={() => handleLinkClick("/articles")}>
+        <a className={linkClass("/articles")} href="/artikelCus" onClick={() => handleLinkClick("/articles")}>
           Artikel
         </a>
-        <a className={linkClass("/tentang")} href="/about" onClick={() => handleLinkClick("/tentang")}>
+        <a className={linkClass("/tentang")} href="/aboutUsCus" onClick={() => handleLinkClick("/tentang")}>
           Tentang
         </a>
       </div>
@@ -137,15 +132,15 @@ export default function NavCus() {
               <HomeIcon className="h-6 w-6 text-gray-500 mr-7" />
               Home
             </a>
-            <a className={linkClass("/layanan")} href="/services" onClick={() => handleLinkClick("/layanan")}>
+            <a className={linkClass("/layanan")} href="/layananCus" onClick={() => handleLinkClick("/layanan")}>
               <BriefcaseIcon className="h-6 w-6 text-gray-500 mr-7" />
               Layanan
             </a>
-            <a className={linkClass("/articles")} href="/articles" onClick={() => handleLinkClick("/articles")}>
+            <a className={linkClass("/articles")} href="/artikelCus" onClick={() => handleLinkClick("/articles")}>
               <NewspaperIcon className="h-6 w-6 text-gray-500 mr-7" />
               Artikel
             </a>
-            <a className={linkClass("/tentang")} href="/about" onClick={() => handleLinkClick("/tentang")}>
+            <a className={linkClass("/tentang")} href="/aboutUsCus" onClick={() => handleLinkClick("/tentang")}>
               <InformationCircleIcon className="h-6 w-6 text-gray-500 mr-7" />
               Tentang
             </a>
