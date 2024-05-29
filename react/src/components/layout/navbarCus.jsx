@@ -9,18 +9,20 @@ import {
   Transition,
 } from '@headlessui/react';
 import { UserIcon, ShoppingCartIcon, HomeIcon, BriefcaseIcon,NewspaperIcon, InformationCircleIcon, ArrowRightStartOnRectangleIcon } from '@heroicons/react/20/solid';
-
-const user = {
-  name: 'Tom Cook',
-  email: 'tom@example.com',
-  imageUrl: null, // Change to null to simulate no image provided
-};
+import { useStateContext } from '../../context/ContextProvider';
+import { Navigate } from 'react-router-dom';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
 }
 
 export default function NavCus() {
+
+  const { currentUser, userToken } = useStateContext();
+
+  if (!userToken){
+    return <Navigate to = "login"/>
+  }
 
   const logout = (ev) => {
     ev.preventDefault();
@@ -80,8 +82,8 @@ export default function NavCus() {
             <MenuButton className="relative flex max-w-xs items-center rounded-full bg-white text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300">
               <span className="absolute -inset-1.5" />
               <span className="sr-only">Open user menu</span>
-              {user.imageUrl ? (
-                <img className="h-7 w-7 rounded-full" src={user.imageUrl} alt="" />
+              {currentUser.imageUrl ? (
+                <img className="h-7 w-7 rounded-full" src={currentUser.imageUrl} alt="" />
               ) : (
                 <UserIcon className="h-9 w-9 rounded-full text-black" />
               )}
@@ -153,15 +155,15 @@ export default function NavCus() {
           <div className="w-full flex flex-col items-start space-y-4 px-6">
             <div className="flex items-center px-5">
               <div className="flex-shrink-0">
-                {user.imageUrl ? (
-                  <img className="h-8 w-8 rounded-full" src={user.imageUrl} alt="" />
+                {currentUser.imageUrl ? (
+                  <img className="h-8 w-8 rounded-full" src={currentUser.imageUrl} alt="" />
                 ) : (
                   <UserIcon className="bg-gray-500 h-8 w-8 rounded-full text-white" />
                 )}
               </div>
               <div className="ml-5">
-                <div className="text-base font-medium leading-none text-gray-500">{user.name}</div>
-                <div className="text-sm font-medium leading-none text-gray-500">{user.email}</div>
+                <div className="text-base font-medium leading-none text-gray-500">{currentUser.name}</div>
+                <div className="text-sm font-medium leading-none text-gray-500">{currentUser.email}</div>
               </div>
             </div>
           </div>

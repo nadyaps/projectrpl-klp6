@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { LockClosedIcon } from '@heroicons/react/20/solid';
-import axiosClient from '../axios';
+import axiosClient from '../axios.js';
 
 export default function Register() {
   const [name, setName] = useState('');
@@ -23,14 +23,13 @@ export default function Register() {
       password,
       address,
       phone,
-      password,
       password_confirmation: passwordConfirm,
     })
       .then(({ data }) => {
         console.log(data);
       })
       .catch((error) => {
-        console.error(error);
+        console.log(error);
       });
   };
 

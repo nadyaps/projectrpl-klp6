@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { UserIcon, ShoppingCartIcon, HomeIcon, BriefcaseIcon,NewspaperIcon, InformationCircleIcon, ArrowLeftEndOnRectangleIcon, IdentificationIcon } from '@heroicons/react/20/solid';
 
 export default function Navbar() {
+  
   const [isOpen, setIsOpen] = useState(false);
   const [activeLink, setActiveLink] = useState("");
 
