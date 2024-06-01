@@ -16,7 +16,7 @@ export default function Register() {
     ev.preventDefault();
     setError({ __html: '' });
 
-    axiosClient.post('/register', {
+    axiosClient.post('/signup', {
       name,
       email,
       username,

@@ -7,11 +7,17 @@ const axiosClient = axios.create({
 
 axiosClient.interceptors.request.use((config)=>{
   const token ='123';
-  config.headers.Authorization = `Bearer ${token}`
+  config.headers = {
+    Authorization: `Bearer ${token}`,
+    "Content-Type": "application/json",
+  }
+  // config.headers.common['X-Requested-With'] = new XMLHttpRequest();
+  // config.headers.common['X-CSRF-TOKEN']= window.csrf_token;
   return config;
 });
 
 axiosClient.interceptors.response.use(response=>{
+  console.log(response)
   return response;
 }, error=>{
   if(error.response && error.response.status === 401){
