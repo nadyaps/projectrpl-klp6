@@ -10,7 +10,7 @@ class Layanan extends Model
     use HasFactory;
     public $table = "layanan";
     protected $guarded = [];
-
+    
     public function harga()
     {
       return $this->hasMany(Harga::class, 'layanan_id');

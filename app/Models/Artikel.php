@@ -10,4 +10,5 @@ class Artikel extends Model
     use HasFactory;
     public $table = "artikel";
     protected $guarded = [];
+
 }

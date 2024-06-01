@@ -8,7 +8,7 @@
       <div class="card-body">
         <div class="d-flex flex-row align-items-center justify-content-between mb-3" >
           <h4 class="mb-3">Pemesanan</h4>
-          <a href="" type="button" class="btn btn-outline-primary btn-block btn-icon-text">
+          <a href="{{route('export.pemesanan')}}" type="button" class="btn btn-outline-primary btn-block btn-icon-text">
             <i data-feather="external-link" class="btn-icon-prepend"></i>
               Export Excel
           </a>

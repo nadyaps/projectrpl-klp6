@@ -11,8 +11,10 @@ use App\Models\Artikel;
 use App\Models\Layanan;
 use App\Models\Pemesanan;
 use App\Models\Harga;
-// use Maatwebsite\Excel\Facades\Excel;
-use App\Exports\UsersExport;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\PemesananExport;
+use Maatwebsite\Excel\Concerns\WithHeadings;
+use Illuminate\Support\Facades\Storage;
 
 class AdminController extends Controller
 {
@@ -205,33 +207,58 @@ class AdminController extends Controller
 
     public function AdminEditArtikel($id)
     {
-      $table = Artikel::findOrFail($id);
-      return view('admin.artikel.admin_edit_artikel', compact('table'));
+      $artikel = Artikel::findOrFail($id);
+      return view('admin.artikel.admin_edit_artikel', compact('artikel'));
     } //End Method
 
     public function AdminStoreArtikel(Request $request)
     {
-      $pid = $request->id;
-      $data = Artikel::where('id', $pid)->first();
-      $data->judul = $request->judul;
-      $data->deskripsi = $request->deskripsi;
-      if($request->hasFile('photo')){
-        $file = $request->file('photo');
-        if($data->photo){
-          @unlink(public_path('admin_image_artikel/'.$data->photo));
+        $pid = $request->id;
+    
+        // Validasi input
+        $request->validate([
+            'judul' => 'required|string|max:255',
+            'deskripsi' => 'required|string',
+            'photo' => 'sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+        ]);
+    
+        // Temukan artikel berdasarkan id
+        $artikel = Artikel::find($pid);
+    
+        if ($artikel) {
+            // Update artikel
+            $artikel->judul = $request->judul;
+            $artikel->deskripsi = $request->deskripsi;
+    
+            if($request->hasFile('photo')){
+              $file = $request->file('photo');
+        
+              if($artikel->photo){
+                @unlink(public_path('admin_image_artikel'.$artikel->photo));
+              }
+              $filename = date('YmdHis').$file->getClientOriginalName();
+              $file->move(public_path('admin_image_artikel'),$filename);
+              $artikel->photo = $filename;
+            }
+    
+            $artikel->save();
+    
+            $notification = array(
+                'message' => 'Artikel berhasil diubah',
+                'alert-type' => 'success'
+            );
+    
+            return redirect()->route('admin.artikel')->with($notification);
+        } else {
+            $notification = array(
+                'message' => 'Artikel tidak ditemukan',
+                'alert-type' => 'error'
+            );
+    
+            return redirect()->back()->with($notification);
         }
-        $filename = date('YmdHis').$file->getClientOriginalName();
-        $file->move(public_path('admin_image_artikel'),$filename);
-        $data->photo = $filename;
-      }
-      $data->save();
-      $notification = array(
-        'message' => 'Artikel berhasil diubah',
-        'alert-type' => 'success'
-      );
-      return redirect()->route('admin.artikel')->with($notification);
-    } //End Method
-
+    }
+    
     //ADMIN LAYANAN
 
     public function AdminLayanan()
@@ -309,45 +336,82 @@ class AdminController extends Controller
 
     public function AdminEditLayanan($id)
     {
-      $data = Layanan::findOrFail($id);
-      return view('admin.layanan.admin_edit_layanan', compact('data'));
+      $layanan = Layanan::findOrFail($id);
+      return view('admin.layanan.admin_edit_layanan', compact('layanan'));
     }
 
     public function AdminStoreLayanan(Request $request)
     {
         $pid = $request->id;
-        $data = Layanan::where('id', $pid)->first();
-        $data->nama_layanan = $request->nama_layanan;
-        $data->deskripsi = $request->deskripsi;
-        $data->fasilitas = $request->fasilitas;
-        $data->jumlah_layanan = $request->jumlah_layanan;
-        
 
-        if($request->hasFile('photo')){
-          $file = $request->file('photo');
-  
-          if($data->photo){
-            @unlink(public_path('admin_image_layanan/'.$data->photo));
-          }
-          $filename = date('YmdHis').$file->getClientOriginalName();
-          $file->move(public_path('admin_image_layanan'),$filename);
-          $data->photo = $filename;
+        // Validasi input
+        $request->validate([
+            'nama_layanan' => 'required|string|max:255',
+            'deskripsi' => 'required|string',
+            'fasilitas' => 'required|string',
+            'jumlah_layanan' => 'required|integer',
+            'price_type' => 'required|string|max:255',
+            'price' => 'required|numeric',
+            'photo' => 'sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+        ]);
+
+        // Temukan layanan berdasarkan id
+        $layanan = Layanan::find($pid);
+
+        if ($layanan) {
+            // Update layanan
+            $layanan->nama_layanan = $request->nama_layanan;
+            $layanan->deskripsi = $request->deskripsi;
+            $layanan->fasilitas = $request->fasilitas;
+            $layanan->jumlah_layanan = $request->jumlah_layanan;
+
+            if ($request->hasFile('photo')) {
+                $file = $request->file('photo');
+
+                // Hapus foto lama jika ada
+                if ($layanan->photo && Storage::exists('admin_image_layanan/' . $layanan->photo)) {
+                    Storage::delete('admin_image_layanan/' . $layanan->photo);
+                }
+
+                // Simpan foto baru
+                $filename = date('YmdHis') . '_' . $file->getClientOriginalName();
+                $filePath = $file->storeAs('admin_image_layanan', $filename, 'public');
+                $layanan->photo = $filename;
+            }
+
+            $layanan->price_type = $request->price_type;
+            $layanan->save();
+
+            // Temukan harga berdasarkan layanan_id
+            $harga = Harga::where('layanan_id', $pid)->first();
+
+            if ($harga) {
+                $harga->price_type = $request->price_type;
+                $harga->price = $request->price;
+                $harga->save();
+            } else {
+                // Jika harga tidak ditemukan, buat baru
+                Harga::create([
+                    'layanan_id' => $pid,
+                    'price_type' => $request->price_type,
+                    'price' => $request->price,
+                ]);
+            }
+
+            $notification = array(
+                'message' => 'Layanan berhasil diubah',
+                'alert-type' => 'success'
+            );
+
+            return redirect()->route('admin.layanan')->with($notification);
+        } else {
+            $notification = array(
+                'message' => 'Layanan tidak ditemukan',
+                'alert-type' => 'error'
+            );
+
+            return redirect()->route('admin.layanan')->with($notification);
         }
-        $data->price_type = $request->price_type; 
-        $data->save();
-
-        $harga = Harga::find($data->layanan_id);
-        $harga->layanan_id = $data->id;
-        $harga->price_type = $data->price_type;
-        $harga->price = $request->price;
-        $harga->save();
-        
-  
-        $notification = array(
-          'message' => 'Layanan berhasil diubah',
-          'alert-type' => 'success'
-        );
-        return redirect()->route('admin.layanan')->with($notification);
     }
 
 
@@ -360,10 +424,9 @@ class AdminController extends Controller
       return view('admin.pemesanan.admin_pemesanan', compact('table', 'user', 'layanan'));
     } //End Method
 
-    //Export Data
-    // public function UsersExport() 
-    // {
-    //   return Excel::download(new UsersExport, 'users.xlsx');
-    // }
+    public function PemesananExport() 
+    {
+      return Excel::download(new PemesananExport, 'pemesanan.xlsx', \Maatwebsite\Excel\Excel::XLSX);
+    }
 }
 

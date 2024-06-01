@@ -1,22 +1,15 @@
 @extends('admin.admin_dashboard')
 @section('admin')
 
-
 <div class="page-content">
 <div class="row">
   <div class="col-md-12 grid-margin stretch-card">
     <div class="card">
       <div class="card-body">
-        <div >
+        <div class="d-flex flex-row align-items-center justify-content-between mb-3">
           <h4 class="mb-3">Users</h4>
-        </div>
-        <div class="d-flex flex-row align-items-center justify-content-between mb-4" >
           <a href="{{route ('add.user') }}" class="btn btn-outline-primary btn-icon-text">
             <i data-feather="plus" class="btn-icon-prepend"></i> Tambah 
-          </a>
-          <a href="{{ route('export.users') }}" type="button" class="btn btn-outline-primary btn-block btn-icon-text">
-            <i data-feather="external-link" class="btn-icon-prepend"></i>
-              Export as Excel
           </a>
         </div>
         <div class="table-responsive">

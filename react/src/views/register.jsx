@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { LockClosedIcon } from '@heroicons/react/20/solid';
-import axiosClient from '../axios.js';
+import axiosClient from '../axios';
 
 export default function Register() {
   const [name, setName] = useState('');
@@ -50,7 +50,7 @@ export default function Register() {
           </p>
         </div>
         
-        <form onSubmit={onSubmit} action="#" method="POST" className="space-y-6">
+        <form onSubmit={onSubmit} action="{{route('register')}}" method="POST" className="space-y-6">
           <input
             className="text-base w-full px-5 py-3 border border-solid border-gray-300 rounded font-[BebasNeue]"
             id="name"

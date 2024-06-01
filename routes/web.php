@@ -54,9 +54,10 @@ Route::middleware(['auth'])->group(function(){
 
     Route::get('/admin/pemesanan', [AdminController::class, 'AdminPemesanan'])->name('admin.pemesanan');
 
-    Route::get('/admin/user/export', [AdminController::class, 'UsersExport'])->name('export.users');
+    Route::get('/admin/pemesanan/export', [AdminController::class, 'PemesananExport'])->name('export.pemesanan');
 });
 
 Route::get('/login', [AdminController::class, 'Adminlogin'])->name('admin.login_admin');
 
 require __DIR__.'/auth.php';
+// require __DIR__.'/api.php';
