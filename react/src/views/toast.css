@@ -1,0 +1,22 @@
+/* Custom CSS for Toastify */
+.Toastify__toast {
+  background-color: #333 !important;
+  color: white !important;
+  font-family: 'BebasNeue', sans-serif !important;
+}
+
+.Toastify__toast--success {
+  background-color: #4caf50 !important;
+}
+
+.Toastify__toast--error {
+  background-color: #f44336 !important;
+}
+
+.Toastify__toast-body {
+  font-size: 1.2rem !important;
+}
+
+.Toastify__progress-bar {
+  background-color: #00bfff !important;
+}

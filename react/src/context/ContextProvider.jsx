@@ -9,11 +9,7 @@ const StateContext = createContext({
 })
 
 export const ContextProvider = ({ children }) => {
-  const [currentUser, setCurrentUser] = useState({
-    name: 'Tom Cook',
-    email: 'tom@example.com',
-    imageUrl: null,
-  })
+  const [currentUser, setCurrentUser] = useState({})
   const [userToken, setUserToken] = useState('')
 
     return (

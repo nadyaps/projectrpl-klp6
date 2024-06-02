@@ -21,7 +21,7 @@ export default function NavCus() {
   const { currentUser, userToken } = useStateContext();
 
   if (!userToken){
-    return <Navigate to = "login"/>
+    return <Navigate to = "\dashboard"/>
   }
 
   const logout = (ev) => {

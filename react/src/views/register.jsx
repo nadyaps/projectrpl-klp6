@@ -1,35 +1,56 @@
 import React, { useState } from 'react';
 import { LockClosedIcon } from '@heroicons/react/20/solid';
-import axiosClient from '../axios';
+import axiosClient from '../axios.js';
+import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import './toast.css'; 
 
 export default function Register() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [passwordConfirm, setPasswordConfirm] = useState('');
+  const [password_confirmation, setPasswordConfirm] = useState('');
   const [address, setAddress] = useState('');
   const [phone, setPhone] = useState('');
-  const [error, setError] = useState({ __html: '' });
+  const [loading, setLoading] = useState(false); // Add loading state
+
+  const navigate = useNavigate();
 
   const onSubmit = (ev) => {
     ev.preventDefault();
-    setError({ __html: '' });
+    setLoading(true); // Set loading to true when the request starts
 
-    axiosClient.post('/register', {
+    // Check if password and confirmation match
+    if (password !== password_confirmation) {
+      setLoading(false); // Set loading to false
+      toast.error('Password and password confirmation do not match');
+      return;
+    }
+
+    axiosClient.post("/signup", {
       name,
       email,
       username,
       password,
       address,
       phone,
-      password_confirmation: passwordConfirm,
+      password_confirmation: password_confirmation,
     })
       .then(({ data }) => {
-        console.log(data);
+        setLoading(false); // Set loading to false when the request completes
+        toast.success('Registration successful! Redirecting to login page...', {
+          onClose: () => navigate('/login')
+        });
       })
-      .catch((error) => {
-        console.log(error);
+      .catch(err => {
+        setLoading(false); // Set loading to false when the request completes
+        const response = err.response;
+        if (response && response.status === 422) {
+          toast.error('Registration failed! Please check your input and try again.');
+          console.log(response.data.errors);
+        }
       });
   };
 
@@ -50,12 +71,12 @@ export default function Register() {
           </p>
         </div>
         
-        <form onSubmit={onSubmit} action="{{route('register')}}" method="POST" className="space-y-6">
+        <form onSubmit={onSubmit} action="{{route('signup')}}" className="space-y-6">
           <input
             className="text-base w-full px-5 py-3 border border-solid border-gray-300 rounded font-[BebasNeue]"
             id="name"
             type="text"
-            name ="name"
+            name="name"
             autoComplete='name'
             required
             placeholder="Full Name"
@@ -66,7 +87,7 @@ export default function Register() {
             className="text-base w-full px-5 py-3 border border-solid border-gray-300 rounded mb-5 font-[BebasNeue]"
             id="username"
             type="text"
-            name ="username"
+            name="username"
             autoComplete='username'
             required
             placeholder="Username"
@@ -77,7 +98,7 @@ export default function Register() {
             className="text-base w-full px-5 py-3 border border-solid border-gray-300 rounded mb-5 font-[BebasNeue]"
             id="email"
             type="email"
-            name ="email"
+            name="email"
             autoComplete='email'
             required
             placeholder="Email Address"
@@ -88,7 +109,7 @@ export default function Register() {
             className="text-base w-full px-5 py-3 border border-solid border-gray-300 rounded mb-5 font-[BebasNeue]"
             id="address"
             type="text"
-            name ="address"
+            name="address"
             autoComplete='address'
             required
             placeholder="Address"
@@ -100,7 +121,7 @@ export default function Register() {
             id="phone"
             type="number"
             placeholder="Phone"
-            name ="phone"
+            name="phone"
             autoComplete='phone'
             required
             value={phone}
@@ -111,7 +132,7 @@ export default function Register() {
             id="current-password"
             type="password"
             placeholder="Password"
-            name ="current-password"
+            name="current-password"
             autoComplete='current-password'
             required
             value={password}
@@ -122,28 +143,40 @@ export default function Register() {
             id="confirm-password"
             type="password"
             placeholder="Confirm Password"
-            name ="confirm-password"
+            name="confirm-password"
             autoComplete='confirm-password'
             required
-            value={passwordConfirm}
+            value={password_confirmation}
             onChange={(e) => setPasswordConfirm(e.target.value)}
           />
           <div className="text-center md:text-left">
             <button
               className="mt-6 group relative flex w-full justify-center font-[BebasNeue] rounded-md border border-transparent bg-indigo-600 py-3 px-4 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
               type="submit"
+              disabled={loading} // Disable button while loading
             >
-              <span className="absolute inset-y-0 left-0 flex items-center pl-3">
-                <LockClosedIcon className="h-5 w-5 text-indigo-500 group-hover:text-indigo-400 font-[BebasNeue] text-lg" aria-hidden="true" />
-              </span>
-              Register
+              {loading ? (
+                <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8h8a8 8 0 01-16 0z"></path>
+                </svg>
+              ) : (
+                <>
+                  <span className="absolute inset-y-0 left-0 flex items-center pl-3">
+                    <LockClosedIcon className="h-5 w-5 text-indigo-500 group-hover:text-indigo-400 font-[BebasNeue] text-lg" aria-hidden="true" />
+                  </span>
+                  Register
+                </>
+              )}
             </button>
           </div>
         </form>
         <div className="mt-6 font-semibold text-base text-slate-500 text-center md:text-left font-[BebasNeue]">
           Already have an account? <a className="text-blue-600 hover:underline hover:underline-offset-4 font-[BebasNeue]" href="/login">Login</a>
         </div>
+        <ToastContainer /> {/* Toast container for displaying notifications */}
       </div>
     </section>
   );
+
 }

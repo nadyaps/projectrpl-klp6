@@ -7,24 +7,34 @@ use App\Http\Requests\RegisterRequest;
 use App\Http\Requests\LoginRequest;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+// use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+// use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
-  public function register(RegisterRequest $request)
+  public function signup(RegisterRequest $request)
   {
     $user = User::create([
       'name' => $request->name,
       'username' => $request->username,
       'email' => $request->email,
-      'password' => Hash::make($request->password),
+      'password' => $request->password,
       'phone' => $request->phone,
       'address' => $request->address,
     ]);
+
+    $notification = array(
+      'message' => 'Registrasi Berhasil',
+      'alert-type' => 'success'
+    );
+    return redirect()->back()->with($notification);
+
     $token = $user->createToken('main')->plainTextToken;
-    return response()([
+    return response([
       'token' => $token,
       'user' => $user,
     ]);
+
   }
 
   public function login(LoginRequest $request)

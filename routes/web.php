@@ -59,5 +59,7 @@ Route::middleware(['auth'])->group(function(){
 
 Route::get('/login', [AdminController::class, 'Adminlogin'])->name('admin.login_admin');
 
+Route::post('/signup', [AuthController::class, 'signup']);
+
 require __DIR__.'/auth.php';
 // require __DIR__.'/api.php';

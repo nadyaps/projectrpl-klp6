@@ -1,5 +1,5 @@
-import axios from 'axios';
-import router from './router'
+import axios from "axios";
+import router from "./router";
 
 const axiosClient = axios.create({
   baseURL: `${import.meta.env.VITE_API_BASE_URL}/api`,
@@ -7,11 +7,15 @@ const axiosClient = axios.create({
 
 axiosClient.interceptors.request.use((config)=>{
   const token ='123';
-  config.headers.Authorization = `Bearer ${token}`
-  return config;
+  config.headers = {
+    Authorization: `Bearer ${token}`,
+    "Content-Type": "application/json",
+  }
+  return config
 });
 
 axiosClient.interceptors.response.use(response=>{
+  console.log(response)
   return response;
 }, error=>{
   if(error.response && error.response.status === 401){
