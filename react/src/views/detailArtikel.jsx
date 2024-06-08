@@ -3,7 +3,7 @@ import React from 'react';
 export default function DetailArtikel() {
   return (
     <div className="w-full mt-24 md:mt-24 px-4 md:px-16 py-16 flex flex-col justify-center items-center bg-white font-[BebasNeue]">
-      <div className="max-w-screen-xl w-full text-center text-neutral-700 text-3xl md:text-4xl font-normal font-BebasNeue">JUDUL ARTIKEL</div>
+      <div className="max-w-screen-xl w-full text-center text-3xl md:text-4xl font-[BebasNeue]">JUDUL ARTIKEL</div>
       <div className="max-w-screen-xl w-full mt-8 flex flex-col md:flex-col justify-center items-center gap-8">
         <div className="w-full md:w-[50%] relative">
           <div className="absolute inset-0 border-4 border-gray-200 rounded-lg"></div>

@@ -7,7 +7,7 @@ export default function jumbotron() {
           <div className="text-white text-center">
             <h1 className="text-4xl md:text-6xl font-[BebasNeue] leading-[64.80px]">5.0 Coworking Space</h1>
             <p className="mt-3 mb-10 text-xl md:text-3xl font-[BebasNeue]">Temukan ruang kerja yang nyaman</p>
-            <a href="/layanan" className="mt-8 px-8 py-6 bg-pink-400 rounded-xl text-md md:text-2xl font-[BebasNeue] uppercase">Lihat Layanan Sekarang</a>
+            <a href="/layananCus" className="mt-8 px-8 py-6 bg-pink-400 rounded-xl text-md md:text-2xl font-[BebasNeue] uppercase">Lihat Layanan Sekarang</a>
           </div>
         </div>
       </div>

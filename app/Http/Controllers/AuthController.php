@@ -30,6 +30,7 @@ class AuthController extends Controller
     return redirect()->back()->with($notification);
 
     $token = $user->createToken('main')->plainTextToken;
+
     return response([
       'token' => $token,
       'user' => $user,
@@ -39,25 +40,43 @@ class AuthController extends Controller
 
   public function login(LoginRequest $request)
   {
-    $credentials = $request->validate();
-    $remember = $credentials['remember'] ?? false;
-    unset($credentials['remember']);
-
-    if (!Auth::attempt($credentials, $remember)) {
-      return response([
-        'error' => 'The provided credientials are not correct',
-      ], 422);
-    }
-    $user = Auth::user();
-    $token = $user->createToken('main')->plainTextToken;
+      // Validasi masukan
+      $credentials = $request->validate([
+          'email' => 'required|email',
+          'password' => 'required',
+      ]);
+  
+      $remember = $request->boolean('remember');
+  
+      // Coba melakukan login
+      if (!Auth::attempt($credentials, $remember)) {
+          // Jika login gagal, kembalikan pesan error
+          return response()->json(['error' => 'The provided credentials are incorrect.'], 500);
+      }
+  
+      // Jika login berhasil, dapatkan user yang terautentikasi
+      $user = Auth::user();
+      
+      // Buat token untuk otorisasi
+      $token = $user->createToken('main')->plainTextToken;
+  
+      // Kembalikan token dan informasi pengguna
+      return response()->json([
+          'token' => $token,
+          'user' => $user,  
+      ]);
   }
+  
   public function logout(Request $request)
   {
-    $user = Auth::user();
-    $user->currentAccessToken()->delete();
-
-    return response([
-      'success' => 'true',
-    ]);
+    $user = $request->user();
+        
+        if ($user) {
+            $user->tokens()->delete();
+            
+            return response()->json(['success' => true]);
+        }
   }
+
+  
 }

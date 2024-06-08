@@ -1,22 +1,24 @@
-import React from 'react'
+import React from 'react';
 
-export default function aboutus() {
+export default function  AboutUs() {
   return (
-    <div className="w-full h-[686px] flex-col justify-center items-center gap-8 inline-flex">
-      <div className="w-full h-[572px] relative">
-        <div className="w-full h-[484px] left-0 top-[88px] absolute">
-          <div className="w-full h-[484px] left-0 top-0 absolute bg-amber-300" />
-        </div>
-        <div className="w-[412.20px] h-[509.22px] left-[195.45px] top-0 absolute">
-          <div className="w-[412.20px] h-[509.22px] left-0 top-0 absolute bg-gradient-to-b from-white to-white rounded-xl" />
-          <img className="w-[399.86px] h-[497.67px] left-[6.17px] top-[5.78px] absolute rounded-xl" src="https://via.placeholder.com/400x498" />
-        </div>
-        <div className="w-[532.21px] h-[267px] left-[795.48px] top-[220px] absolute">
-          <div className="w-[387.47px] left-[0.08px] top-[72px] absolute text-neutral-700 text-[32px] font-semibold font-[BebasNeue] tracking-wider">5.0 Coworking Space</div>
-          <div className="w-[532.21px] h-[154px] left-0 top-[113px] absolute text-neutral-500 text-lg font-normal font-[BebasNeue] tracking-wide mt-5">Fasilitas 5.0 Coworking Space untuk membantu mereka yang menginginkan sebuah kerja sesuai kebutuhan antara lain private office, workspace dan ruang meeting. Semua fasilitas ini juga dilengkapi dengan layanan coffee space. <br/></div>
-          <div className="w-[485.45px] h-[66px] left-[0.08px] top-0 absolute text-neutral-700 text-5xl font-normal font-[BebasNeue]">About us</div>
-        </div>
+    <div className="w-full bg-white flex flex-col justify-center items-center gap-12 p-8 md:p-12 lg:p-16">
+      <h1 className=" text-center font-['BebasNeue'] text-4xl">ABOUT US</h1>
+      <div className="flex justify-center">
+        <img
+          src="../../public/assets/img/aboutus.png"
+          alt="Coworking space"
+          className="rounded-lg shadow-lg"
+        />
+      </div>
+      <div className="bg-custom-blue p-8 rounded-lg shadow-md mb-6">
+        <p className="text-gray-800 font-['Montserrat'] font-reluler text-[15px] text-justify mb-4">
+          5.0 Coworking Space Menyuguhkan konsep dan suasana yang ada di gedung baru berbeda dari tempat sebelumnya. Desain interior dibuat lebih minimalis dan modern. Fasilitas 5.0 Coworking Space untuk membantu mereka yang menginginkan sebuah kerja sesuai kebutuhan antara lain private office, workspace dan ruang meeting. Semua fasilitas ini juga dilengkapi dengan layanan coffee space.
+        </p>
+        <p className="text-gray-800 font-['Montserrat'] font-reluler text-[15px] text-justify">
+          Ada enam layanan yang ditawarkan oleh 5.0 Coworking space. Pertama, Dedicated Desk yaitu menyewa 1 kursi tanpa menyimpan barangnya di loker dan ruangan yang didapatkan terbuka (sewa tempat per jam/ hari). Kedua, Private Office yaitu kantor pribadi/Perusahaan (sewa per bulan minimal 1 bulan). Ketiga, Private Room yaitu dipakai siapa saja (sewa sesuai kebutuhan). Keempat, Meeting Room yaitu jika sudah menjadi member Private Office akan diberikan fasilitas Meeting Room gratis 4 kali dalam 1 bulan. Pengaturannya diatur sesuai kebutuhan dengan mengisi formulir secara manual. Kelima, Virtual Office yaitu penyewaan alamat untuk berkantor (orang yang buat cabang Perusahaan tanpa office hanya dalam bentuk Alamat/kantor online yang muncul di akun resmi Perusahaan) dengan aturan sewa minimal 1 tahun. Terakhir, Coffee Space yaitu pelanggan dapat memesan kopi. Datang pertama atau memesan ruangan pertama kali mendapatkan free kopi.
+        </p>
       </div>
     </div>
-  )
-}
+  );
+};

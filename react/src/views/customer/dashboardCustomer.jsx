@@ -1,16 +1,18 @@
 import React from 'react'
-import Jumbotron from '../../components/content/jumbotron'
+import JumbotronCus from '../../components/content/jumbotronCus'
 import LayananListCus from '../../components/content/layananListCus'
 import ArtikelListCus from '../../components/content/artikelListCus'
-import AboutusCus from '../../components/content/aboutusCus'
+import Aboutus from '../../components/content/aboutus'
+
 
 export default function dashboardCustomer() {
+  
   return (
     <div className="bg-white">
-      <Jumbotron></Jumbotron>
+      <JumbotronCus></JumbotronCus>
       <LayananListCus></LayananListCus>
       <ArtikelListCus></ArtikelListCus>
-      <AboutusCus></AboutusCus>
+      <Aboutus></Aboutus>
     </div>
   )
 }

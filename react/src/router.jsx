@@ -16,6 +16,10 @@ import LayananCustomer from './views/customer/layananCustomer'
 import ArtikelCus from './views/customer/artikelCustomer';
 import DetailLayananCustomer from './views/customer/detailLayananCus';
 import DetailArtikelCustomer from './views/customer/detailArtikelCus';
+import Keranjang from './views/customer/keranjang';
+import AboutUsCus from './views/customer/aboutusCus';
+import Pemesanan from './views/customer/pemesanan';
+import DetailTransaksi from './views/customer/detailTransaksi';
 
 const router = createBrowserRouter([
   {
@@ -74,6 +78,23 @@ const router = createBrowserRouter([
         path: '/artikelCus',
         element: <ArtikelCus />,
       },
+      {
+        path: '/keranjang',
+        element: <Keranjang />,
+      },
+      {
+        path: '/detailTransaksi',
+        element: <DetailTransaksi />,
+      },
+      {
+        path: '/aboutuscus',
+        element: <AboutUsCus />,
+      },
+      {
+        path: '/pemesanan',
+        element: <Pemesanan />,
+      },
+
 
     ]
   },

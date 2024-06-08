@@ -11,6 +11,7 @@ import {
 import { UserIcon, ShoppingCartIcon, HomeIcon, BriefcaseIcon,NewspaperIcon, InformationCircleIcon, ArrowRightStartOnRectangleIcon } from '@heroicons/react/20/solid';
 import { useStateContext } from '../../context/ContextProvider';
 import { Navigate } from 'react-router-dom';
+import axiosClient from '../../axios';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
@@ -18,17 +19,17 @@ function classNames(...classes) {
 
 export default function NavCus() {
 
-  const { currentUser, userToken } = useStateContext();
-
-  if (!userToken){
-    return <Navigate to = "\dashboard"/>
-  }
+  const { currentUser, userToken, setCurrentUser, setUserToken } = useStateContext();
 
   const logout = (ev) => {
     ev.preventDefault();
-    console.log('Logout');
+    axiosClient.post('/logout')
+    .then((res) => {
+      setCurrentUser({});
+      setUserToken(null);
+    });
   };
-
+  
   const [isOpen, setIsOpen] = useState(false);
   const [activeLink, setActiveLink] = useState("");
 
@@ -52,7 +53,7 @@ export default function NavCus() {
     <div className="w-full h-[94px] px-4 md:px-8 bg-white flex justify-between items-center fixed top-0 z-50 font-[BebasNeue]">
       <a
         className="flex flex-col justify-center items-start gap-2.5 cursor-pointer"
-        href="/"
+        href="/dashboard"
         onClick={() => handleLinkClick("/")}
       >
         <div className="text-neutral-700 text-[24px] md:text-[32px] font-medium uppercase leading-[50px] mr-10">
@@ -74,9 +75,9 @@ export default function NavCus() {
         </a>
       </div>
       <div className="hidden md:flex h-full justify-center items-center space-x-6 mx-4">
-        <button className="relative flex items-center rounded-full bg-white p-2 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-white-400">
+        <a  href="/keranjang" className="relative flex items-center rounded-full bg-white p-2 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-white-400">
           <ShoppingCartIcon className="h-7 w-7 text-black" aria-hidden="true" />
-        </button>
+        </a>
         <Menu as="div" className="relative ml-3">
           <div>
             <MenuButton className="relative flex max-w-xs items-center rounded-full bg-white text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300">
@@ -146,7 +147,7 @@ export default function NavCus() {
               <InformationCircleIcon className="h-6 w-6 text-gray-500 mr-7" />
               Tentang
             </a>
-            <a className={linkClass("/pemesanan")} href="/pemesanan" onClick={() => handleLinkClick("/pemesanan")}>
+            <a className={linkClass("/keranjang")} href="/keranjang" onClick={() => handleLinkClick("/keranjang")}>
               <ShoppingCartIcon className="h-6 w-6 text-gray-500 mr-7" />
               Keranjang
             </a>

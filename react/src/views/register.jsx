@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './toast.css'; 
+import { useStateContext } from "../context/ContextProvider.jsx";
 
 export default function Register() {
   const [name, setName] = useState('');
@@ -25,7 +26,7 @@ export default function Register() {
     // Check if password and confirmation match
     if (password !== password_confirmation) {
       setLoading(false); // Set loading to false
-      toast.error('Password and password confirmation do not match');
+      toast.error('Password dan konfirmasi password tidak cocok');
       return;
     }
 
@@ -40,15 +41,17 @@ export default function Register() {
     })
       .then(({ data }) => {
         setLoading(false); // Set loading to false when the request completes
-        toast.success('Registration successful! Redirecting to login page...', {
+        toast.success('Registrasi berhasil...', {
           onClose: () => navigate('/login')
         });
+        setCurrentUser(data.user)
+        setUserToken(data.token)
       })
       .catch(err => {
         setLoading(false); // Set loading to false when the request completes
         const response = err.response;
-        if (response && response.status === 422) {
-          toast.error('Registration failed! Please check your input and try again.');
+        if (response && response.status === 500) {
+          toast.error('Email sudah terdaftar...');
           console.log(response.data.errors);
         }
       });
@@ -81,7 +84,7 @@ export default function Register() {
             required
             placeholder="Full Name"
             value={name}
-            onChange={(e) => setName(e.target.value)}
+            onChange={(ev) => setName(ev.target.value)}
           />
           <input
             className="text-base w-full px-5 py-3 border border-solid border-gray-300 rounded mb-5 font-[BebasNeue]"
@@ -92,7 +95,7 @@ export default function Register() {
             required
             placeholder="Username"
             value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            onChange={(ev) => setUsername(ev.target.value)}
           />
           <input
             className="text-base w-full px-5 py-3 border border-solid border-gray-300 rounded mb-5 font-[BebasNeue]"
@@ -103,7 +106,7 @@ export default function Register() {
             required
             placeholder="Email Address"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(ev) => setEmail(ev.target.value)}
           />
           <input
             className="text-base w-full px-5 py-3 border border-solid border-gray-300 rounded mb-5 font-[BebasNeue]"
@@ -114,7 +117,7 @@ export default function Register() {
             required
             placeholder="Address"
             value={address}
-            onChange={(e) => setAddress(e.target.value)}
+            onChange={(ev) => setAddress(ev.target.value)}
           />
           <input
             className="text-base w-full px-5 py-3 border border-solid border-gray-300 rounded mb-5 font-[BebasNeue]"
@@ -125,7 +128,7 @@ export default function Register() {
             autoComplete='phone'
             required
             value={phone}
-            onChange={(e) => setPhone(e.target.value)}
+            onChange={(ev) => setPhone(ev.target.value)}
           />
           <input
             className="text-base w-full px-5 py-3 border border-solid border-gray-300 rounded mb-5 font-[BebasNeue]"
@@ -136,7 +139,7 @@ export default function Register() {
             autoComplete='current-password'
             required
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(ev) => setPassword(ev.target.value)}
           />
           <input
             className="text-base w-full px-5 py-3 border border-solid border-gray-300 rounded mb-5 font-[BebasNeue]"
@@ -147,7 +150,7 @@ export default function Register() {
             autoComplete='confirm-password'
             required
             value={password_confirmation}
-            onChange={(e) => setPasswordConfirm(e.target.value)}
+            onChange={(ev) => setPasswordConfirm(ev.target.value)}
           />
           <div className="text-center md:text-left">
             <button

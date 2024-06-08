@@ -6,9 +6,8 @@ const axiosClient = axios.create({
 })
 
 axiosClient.interceptors.request.use((config)=>{
-  const token ='123';
   config.headers = {
-    Authorization: `Bearer ${token}`,
+    Authorization: `Bearer ${localStorage.getItem('TOKEN')}`,
     "Content-Type": "application/json",
   }
   return config
