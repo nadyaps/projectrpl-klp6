@@ -10,7 +10,7 @@ const StateContext = createContext({
 
 export const ContextProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(() => JSON.parse(localStorage.getItem('USER_CREDENTIALS')) || {})
-  const [ _setUserCredentials] = useState(localStorage.getItem('USER_CREDENTIALS') || '')
+  const [ userCredentials, _setUserCredentials] = useState(localStorage.getItem('USER_CREDENTIALS') || '')
   const [userToken, _setUserToken] = useState(localStorage.getItem('TOKEN') || '')
 
   const setUserToken = (token) => {
@@ -39,6 +39,7 @@ export const ContextProvider = ({ children }) => {
           userToken,
           setUserToken,
           setUserCredentials,
+          userCredentials
          }}>
             {children}
         </StateContext.Provider>

@@ -32,6 +32,9 @@ export default function login() {
       password,
     })
       .then(({ data }) => {
+        setLoading(false); // Set loading to false when the request completes
+        
+        
         setCurrentUser(data.user);
         setUserToken(data.token);
         setUserCredentials({
@@ -39,9 +42,11 @@ export default function login() {
           email: data.user.email,
           photo: data.user.photo,
         })
-        setLoading(false); // Set loading to false when the request completes
-        toast.success('Login Berhasil...')
-        navigate('/dashboard');
+        toast.success('Login Berhasil...');
+        setTimeout(() => {
+          navigate('/dashboard');
+        }, 1000); 
+        
       })
       .catch(err => {
         setLoading(false); // Set loading to false when the request completes

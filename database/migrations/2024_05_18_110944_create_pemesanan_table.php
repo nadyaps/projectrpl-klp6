@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('pemesanan', function (Blueprint $table) {
             $table->id();
-            $table->string('kode_booking', 4);
+            $table->string('kode_booking', 4)->unique();
             $table->foreignId('user_id')->index();
             $table->foreignId('layanan_id')->index();
+            $table->string('nama_pemesan');
             $table->date('tanggal_pesan');
             $table->dateTime('tanggal_mulai');
             $table->dateTime('tanggal_berakhir');

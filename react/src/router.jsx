@@ -35,7 +35,7 @@ const router = createBrowserRouter([
         element: <Layanan/>
       },
       {
-        path: '/detailLayanan',
+        path: '/layanan/:id',
         element: <DetailLayanan/>
       },
       {
@@ -43,7 +43,7 @@ const router = createBrowserRouter([
         element: <Artikel/>
       },
       {
-        path: '/detailArtikel',
+        path: '/artikel/:id',
         element: <DetailArtikel/>
       },
       {
@@ -63,20 +63,20 @@ const router = createBrowserRouter([
         element: <DashboardCustomer />,
       },
       {
-        path: '/detailLayananCus',
-        element: <DetailLayananCustomer />,
-      },
-      {
-        path: '/detailArtikelCus',
-        element: <DetailArtikelCustomer />,
-      },
-      {
         path: '/layananCus',
         element: <LayananCustomer />,
       },
       {
+        path: '/detaillayanan/:id',
+        element: <DetailLayananCustomer />,
+      },
+      {
         path: '/artikelCus',
         element: <ArtikelCus />,
+      },
+      {
+        path: '/detailartikel/:id',
+        element: <DetailArtikelCustomer />,
       },
       {
         path: '/keranjang',
@@ -91,7 +91,7 @@ const router = createBrowserRouter([
         element: <AboutUsCus />,
       },
       {
-        path: '/pemesanan',
+        path: '/pemesanan/:id',
         element: <Pemesanan />,
       },
 

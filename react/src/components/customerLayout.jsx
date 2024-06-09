@@ -1,6 +1,6 @@
 import Footer from "./layout/footer";
 import { Outlet } from "react-router-dom";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   Disclosure,
   Menu,
@@ -9,9 +9,8 @@ import {
   MenuItems,
   Transition,
 } from '@headlessui/react';
-import { UserIcon, ShoppingCartIcon, HomeIcon, BriefcaseIcon,NewspaperIcon, InformationCircleIcon, ArrowRightStartOnRectangleIcon } from '@heroicons/react/20/solid';
+import { UserIcon, ShoppingCartIcon, HomeIcon, BriefcaseIcon,NewspaperIcon, InformationCircleIcon, IdentificationIcon } from '@heroicons/react/20/solid';
 import { useStateContext } from '../context/ContextProvider';
-import { Navigate } from 'react-router-dom';
 import axiosClient from '../axios.js';
 import { useNavigate } from 'react-router-dom';
 
@@ -25,9 +24,13 @@ export default function customerLayout() {
   const { currentUser, userToken, setCurrentUser, setUserToken, setUserCredentials  } = useStateContext();
   const navigate = useNavigate();
 
-  if (!userToken){
-    return <Navigate to = "/login"/>
-  }
+  useEffect(() => {
+    if (!userToken){
+      return navigate("/login")
+    }
+  }, [userToken]
+);
+  
   
   const logout = (ev) => {
     ev.preventDefault();
@@ -36,8 +39,14 @@ export default function customerLayout() {
       setCurrentUser({});
       setUserToken(null);
       setUserCredentials(null);
+      navigate('/login');
     });
   };
+
+  const goToProfile = () => {
+    navigate('/profile'); // Adjust this route to your actual profile route
+  };
+
 
   const [isOpen, setIsOpen] = useState(false);
   const [activeLink, setActiveLink] = useState("");
@@ -93,8 +102,8 @@ export default function customerLayout() {
               <MenuButton className=" w full relative flex max-w-xs items-center rounded-full bg-white text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300">
                 <span className="absolute -inset-1.5" />
                 <span className="sr-only">Open user menu</span>
-                {currentUser.imageUrl ? (
-                  <img className="h-7 w-7 rounded-full" src={currentUser.imageUrl} alt="" />
+                {currentUser.photo ? (
+                  <img className="h-7 w-7 rounded-full" src={currentUser.photo} alt="" />
                 ) : (
                   <UserIcon className="h-9 w-9 rounded-full text-black" />
                 )}
@@ -109,7 +118,12 @@ export default function customerLayout() {
               leaveTo="transform opacity-0 scale-95"
             >
               <MenuItems className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                  <MenuItem>
+                  <button
+                      onClick={goToProfile}
+                      className="block px-4 py-2 text-md text-gray-700"
+                    >
+                      My Profile
+                    </button>
                     <button
                       onClick={(ev)=>logout(ev)}
                       className={classNames(
@@ -118,7 +132,6 @@ export default function customerLayout() {
                     >
                       Logout
                     </button>
-                  </MenuItem>
               </MenuItems>
             </Transition>
           </Menu>
@@ -165,16 +178,16 @@ export default function customerLayout() {
             <div className="w-full flex flex-col items-start space-y-4 px-6">
               <div className="flex items-center px-5">
                 <div className="flex-shrink-0">
-                  {currentUser.imageUrl ? (
-                    <img className="h-8 w-8 rounded-full" src={currentUser.imageUrl} alt="" />
+                  {currentUser.photo ? (
+                    <img className="h-8 w-8 rounded-full" src={currentUser.photo} alt="" />
                   ) : (
                     <UserIcon className="bg-gray-500 h-8 w-8 rounded-full text-white" />
                   )}
                 </div>
-                <div className="ml-5">
+                <a href="/profile" className="ml-5">
                   <div className="text-base font-medium leading-none text-gray-500">{currentUser.name}</div>
                   <div className="text-sm font-medium leading-none text-gray-500">{currentUser.email}</div>
-                </div>
+                </a>
               </div>
             </div>
             <div className="w-full flex flex-col items-start py-2 px-6">
