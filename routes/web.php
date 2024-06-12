@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AcceptReject;
 
 Route::get('/', function () {
     return view('welcome');
@@ -53,8 +54,14 @@ Route::middleware(['auth'])->group(function(){
     Route::post('/admin/layanan/store',[AdminController::class, 'AdminStoreLayanan'])->name('store.layanan');
 
     Route::get('/admin/pemesanan', [AdminController::class, 'AdminPemesanan'])->name('admin.pemesanan');
+    Route::get('/admin/pemesanan/{id}', [AdminController::class, 'AdminViewPemesanan'])->name('view.pemesanan');
+    Route::get('/admin/pending/{id}', [AdminController::class, 'AdminPendingPemesanan'])->name('pending.pemesanan');
+    Route::get('/admin/pemesanan/delete/{id}', [AdminController::class, 'AdminDeletePemesanan'])->name('delete.pemesanan');
 
     Route::get('/admin/pemesanan/export', [AdminController::class, 'PemesananExport'])->name('export.pemesanan');
+
+    Route::get('/admin/pemesanan/accept/{id}', [AcceptReject::class, 'AcceptRequest'])->name('accept.pemesanan');
+    Route::get('/admin/pemesanan/reject/{id}', [AcceptReject::class, 'RejectRequest'])->name('reject.pemesanan');
 });
 
 Route::get('/login', [AdminController::class, 'Adminlogin'])->name('admin.login_admin');

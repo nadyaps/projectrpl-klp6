@@ -26,7 +26,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('layanan_id')->index();
             $table->enum('price_type', ['perhari', 'perjam', 'perbulan', 'pertahun']);
-            $table->decimal('price', 10, 2);
+            $table->decimal('price', 10);
             $table->timestamps();
         });
     }

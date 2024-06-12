@@ -12,4 +12,8 @@ class Artikel extends Model
     public $table = "artikel";
     protected $guarded = [];
 
+    public function getImageUrlAttribute()
+    {
+        return asset('admin_image_artikel/' . $this->photo);
+    }
 }

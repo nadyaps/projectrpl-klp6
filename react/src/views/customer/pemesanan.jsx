@@ -2,15 +2,53 @@ import React, { useState, useEffect } from 'react';
 import { FaWifi, FaUsers, FaChalkboardTeacher, FaTv } from 'react-icons/fa'; 
 import axiosClient from '../../axios';
 import { useParams } from 'react-router-dom';
+import { useStateContext } from '../../context/ContextProvider';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import '../toast.css'; 
+import { useNavigate } from 'react-router-dom';
 
 export default function Pemesanan() {
   const { id } = useParams();
+  const { userCredentials } = useStateContext();
   const [layananItem, setLayananItem] = useState({});
   const [nama_pemesan, setNama_pemesan] = useState('');
   const [tanggal_mulai, setTanggal_mulai] = useState('');
-  const [tanggal_selesai, setTanggal_selesai] = useState('');
+  const [tanggal_berakhir, setTanggal_berakhir] = useState('');
   const [jumlah_orang, setJumlah_orang] = useState('');
+  const [metode_pembayaran, setMetode_pembayaran] = useState('');
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+
+  const userId = JSON.parse(userCredentials).id;
+  const onSubmit = async (ev) => {
+    ev.preventDefault();
+    setLoading(true);
+    try {
+     await axiosClient.post('/pemesanan', {
+      user_id: userId,
+      nama_pemesan,
+      tanggal_mulai,
+      tanggal_berakhir,
+      jumlah_orang,
+      metode_pembayaran,
+      layanan_id: id,
+      harga_id: id,
+      status: 'pending',
+     }
+      ).then((response)=>{
+        console.log(response.data);
+        toast.success('Pemesanan Berhasil...');
+        setTimeout(() => {
+          navigate('/keranjang');
+        }, 1000); 
+      }). catch((err) => console.log(err));
+    } catch (error) {
+      console.error('Error creating booking:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
     axiosClient.get(`/layanan/${id}`)
@@ -21,30 +59,6 @@ export default function Pemesanan() {
       .catch(error => console.error('There was an error fetching the article!', error));
   }, [id]);
 
-  const onSubmit = async (ev) => {
-    ev.preventDefault();
-    setLoading(true);
-    const bookingData = { nama_pemesan, tanggal_mulai, tanggal_selesai, jumlah_orang };
-    try {
-      await axiosClient.post('/pemesanan', bookingData);
-      console.log('Booking created:', response.data);
-    } catch (error) {
-      console.error('Error creating booking:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-//   const onSubmit = (ev) => {
-//   ev.preventDefault();
-//   const bookingData = { nama_pemesan, tanggal_mulai, tanggal_selesai, jumlah_orang };
-//   try {
-//     axiosClient.post('/pemesanan', bookingData);
-//     console.log('Booking created:', response.data);
-//   } catch (error) {
-//     console.error('Error creating booking:', error);
-//   }
-// }
 
   return (
     <div className="w-full bg-white mt-24 px-10 md:px-16 py-16">
@@ -66,20 +80,27 @@ export default function Pemesanan() {
           <div className="relative">
               <label className="font-['BebasNeue'] text-md block mb-2">Jenis Layanan</label>
               <div className="font-['BebasNeue'] text-md mb-4">
-                  <input 
-                    value= {layananItem.nama_layanan} readOnly
-                    className="w-full p-2 border border-gray-300 rounded" 
-                  />
+                <p className="w-full p-2 border border-gray-300 rounded">
+                  {layananItem.nama_layanan}
+                </p>
               </div>
             </div>
           <div className="relative">
-            <label className="font-['BebasNeue'] text-md block mb-2">Jumlah orang*</label>
+            <label className="font-['BebasNeue'] text-md block mb-2">Jumlah orang</label>
             <div className="font-['BebasNeue'] text-md mb-4">
                 <input 
                   type="number" 
                   placeholder="Masukkan jumlah orang" 
                   value={jumlah_orang} 
-                  onChange={(ev) => setJumlah_orang(ev.target.value)}
+                  onChange={(ev) => {
+                    const value = ev.target.value;
+                    if (value >= 0) { // Validasi agar nilai tidak negatif
+                      setJumlah_orang(value);
+                    } else {
+                      setJumlah_orang(0); // Atau bisa membiarkan nilai tetap tidak berubah
+                    }
+                  }}
+                  min="1" // Set minimum value ke 0
                   className="w-full p-2 border border-gray-300 rounded" 
                 />
             </div>
@@ -88,27 +109,41 @@ export default function Pemesanan() {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
           <div className="relative">
-            <label className="font-['BebasNeue'] text-md block mb-2">Tanggal Mulai*</label>
-            <div className="font-['BebasNeue'] text-md w-full p-2 border border-gray-300 rounded h-10 flex items-center">
+            <label className="font-['BebasNeue'] text-md block mb-2">Tanggal Mulai</label>
+            <div className="font-['BebasNeue'] text-md mb-4">
               <input
                 value={tanggal_mulai}
                 onChange={(ev) => setTanggal_mulai(ev.target.value)}
-                className="w-full"
+                className="w-full p-2 border border-gray-300 rounded"
                 type="date"
                 placeholder="dd/mm/yyyy"
               />
             </div>
           </div>
           <div className="relative">
-            <label className="font-['BebasNeue'] text-md block mb-2">Tanggal Selesai*</label>
-            <div className="font-['BebasNeue'] text-md w-full p-2 border border-gray-300">
+            <label className="font-['BebasNeue'] text-md block mb-2">Tanggal Selesai</label>
+            <div className="font-['BebasNeue'] text-md mb-4">
               <input
-                value={tanggal_selesai}
-                onChange={(ev) => setTanggal_selesai(ev.target.value)}
-                className="w-full"
+                value={tanggal_berakhir}
+                onChange={(ev) => setTanggal_berakhir(ev.target.value)}
+                className="w-full p-2 border border-gray-300 rounded"
                 type="date"
                 placeholder="dd/mm/yyyy"
               />
+            </div>
+          </div>
+          <div className="relative">
+            <label className="font-['BebasNeue'] text-md block mb-2">Metode Pembayaran</label>
+            <div className="font-['BebasNeue'] text-md mb-4">
+            <select
+              value={metode_pembayaran}
+              onChange={(ev) => setMetode_pembayaran(ev.target.value)}
+              className="w-full p-2 border border-gray-300 rounded"
+            >
+              <option value="">Pilih metode pembayaran</option>
+              <option value='e-wallet'>E-Wallet (OVO, Gopay)</option>
+              <option value='transfer bank'>Transfer Bank (Mandiri, BNI)</option>
+            </select>
             </div>
           </div>
         </div>
@@ -149,6 +184,7 @@ export default function Pemesanan() {
           <p className="font-['BebasNeue'] text-md">Layar Presentasi (TV atau Proyektor)</p>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };

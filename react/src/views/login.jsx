@@ -32,15 +32,17 @@ export default function login() {
       password,
     })
       .then(({ data }) => {
-        setLoading(false); // Set loading to false when the request completes
-        
-        
+        setLoading(false); // Set loading to false when the request completes  
         setCurrentUser(data.user);
         setUserToken(data.token);
         setUserCredentials({
+          id: data.user.id,
           name: data.user.name,
           email: data.user.email,
           photo: data.user.photo,
+          address: data.user.address,
+          phone: data.user.phone,
+          role: data.user.role,
         })
         toast.success('Login Berhasil...');
         setTimeout(() => {

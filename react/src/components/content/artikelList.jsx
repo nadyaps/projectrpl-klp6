@@ -36,10 +36,9 @@ export default function Artikel() {
           {artikel.map((artikelItem) => ( // Slice the array to get only the first 3 articles
             <Link to={`/artikel/${artikelItem.id}`} key={artikelItem.id}>
               <div className="bg-white rounded-3xl shadow-md cursor-pointer">
-                <div className="bg-neutral-50 rounded-t-3xl overflow-hidden">
-                  <img className="w-full h-60 object-fit"
-                       src = "../../public/assets/img/no_image.jpg"
-                       // src={artikelItem.photo ? artikelItem.photo : '../../public/assets/img/no_image.jpg'}
+                <div className="w-full bg-neutral-50 rounded-t-3xl overflow-hidden">
+                  <img className="w-full h-60 object-cover"
+                       src = {artikelItem.image_url}
                        alt={artikelItem.judul}/>
                 </div>
                 <div className="bg-white p-6 rounded-b-3xl">

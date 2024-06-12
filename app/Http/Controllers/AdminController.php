@@ -20,7 +20,7 @@ class AdminController extends Controller
 {
     public function AdminDashboard()
     {
-      $table = Pemesanan::limit(10)->get();
+      $table = Pemesanan::limit(10)->orderBy('created_at', 'desc')->get();
       return view('admin.index', compact('table'));
     }
 
@@ -73,7 +73,7 @@ class AdminController extends Controller
 
     public function AdminUser()
     {
-      $table = User::all();
+      $table = User::orderBy('created_at', 'desc')->get();
       return view('admin.user.admin_user', compact('table'));
     } //End Method
     public function AdminAddUser()
@@ -92,6 +92,7 @@ class AdminController extends Controller
       $data->address = $request->address;
       $data->role = $request->role;
       $data->password = Hash::make('123');
+      
       if($request->hasFile('photo')){
         $file = $request->file('photo');
         $filename = date('YmdHis').$file->getClientOriginalName();
@@ -161,7 +162,7 @@ class AdminController extends Controller
 
     public function AdminArtikel()
     {
-      $data = Artikel::get();
+      $data = Artikel::orderBy('created_at', 'desc')->get();
       return view('admin.artikel.admin_artikel', compact('data'));
     } //End Method
     public function AdminAddArtikel()
@@ -263,7 +264,7 @@ class AdminController extends Controller
 
     public function AdminLayanan()
     {
-      $table = Layanan::with('harga')->get();
+      $table = Layanan::with('harga')->orderBy('created_at', 'desc')->get();
       return view('admin.layanan.admin_layanan', compact('table'));
     } //End Method
 
@@ -309,6 +310,7 @@ class AdminController extends Controller
             'message' => 'Layanan Berhasil Ditambahkan',
             'alert-type' => 'success'
         );
+
         return redirect()->route('admin.layanan')->with($notification);
     }
     
@@ -418,11 +420,32 @@ class AdminController extends Controller
     //ADMIN PEMESANAN
     public function AdminPemesanan()
     {
-      $table = Pemesanan::get();
-      $user = User::get();
-      $layanan = Layanan::get();
-      return view('admin.pemesanan.admin_pemesanan', compact('table', 'user', 'layanan'));
+      $data = Pemesanan::with('layanan')->with('harga')->orderBy('created_at', 'desc')->get();
+      return view('admin.pemesanan.admin_pemesanan', compact('data'));
     } //End Method
+
+    public function AdminViewPemesanan($id)
+    {
+      $data = Pemesanan::find($id);
+      return view('admin.pemesanan.admin_view_pemesanan', compact('data'));
+    } //End Method
+
+    public function AdminPendingPemesanan($id)
+    {
+      $data = Pemesanan::find($id);
+      return view('admin.pemesanan.admin_view_pemesanan_pending', compact('data'));
+    } //End Method
+
+    public function AdminDeletePemesanan($id)
+    {
+        Pemesanan::findOrFail($id)->delete();
+        $notification = array(
+          'message' => 'Pemesanan berhasil dihapus',
+          'alert-type' => 'success'
+      );
+      return redirect()->back()->with($notification);
+    }
+    
 
     public function PemesananExport() 
     {

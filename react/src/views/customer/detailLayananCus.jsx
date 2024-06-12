@@ -18,16 +18,15 @@ export default function DetailLayanan() {
 
   return (
     <div className="w-full mt-24 md:mt-24 px-4 md:px-16 py-40 flex flex-col justify-center items-center bg-white font-[BebasNeue]">
-      <div className="flex flex-col md:flex-row justify-between items-center md:items-start gap-8 md:gap-16">
-        {/* Image Section */}
-        <div className="w-full md:w-[50%] relative">
-          {/* Frame */}
-          <div className="absolute inset-0 border-4 border-gray-200 rounded-lg"></div>
-            <img className="w-full rounded-lg" 
-            src = "../../public/assets/img/no_image.jpg"
-            // src={layananItem.photo ? layananItem.photo : '../../public/assets/img/no_image.jpg'}
-            alt={layananItem.nama_layanan}/>
-        </div>
+            <div className="w-[700px] md:w-1/2 flex flex-col md:flex-row justify-between items-center md:items-start gap-8 md:gap-16">
+                {/* Image Section */}
+                <div className="w-full md:w-[50%] relative">
+                    <img
+                        className="size-full border-4 border-gray-200 rounded-lg"
+                        src={layananItem.photo}
+                        alt={layananItem.nama_layanan}
+                    />
+                </div>
         
         {/* Description Section */}
         <div className="w-full md:w-[50%] flex flex-col justify-start">
@@ -37,13 +36,13 @@ export default function DetailLayanan() {
             <div className="text-neutral-700 text-xl font-normal font-[BebasNeue]">{layananItem.fasilitas}</div>
             <div className="text-neutral-700 text-2xl font-normal font-[BebasNeue]">
             {layananItem.harga && layananItem.harga.length > 0 && (
-              <div>{layananItem.harga[0].price} / {layananItem.price_type}</div>
+              <div>Rp {layananItem.harga[0].price} / {layananItem.price_type}</div>
             )}
             </div>
           </div>
           <Link to={`/pemesanan/${id}`}>
           <div className="mt-8 text-center md:text-left">
-            <button className="px-6 py-3 mt-10 bg-pink-400 rounded-xl text-white text-lg font-normal font-[BebasNeue] uppercase tracking-widest">Pesan sekarang</button>
+            <button className="px-6 py-3 bg-pink-400 rounded-xl text-white text-md font-normal font-[BebasNeue] uppercase tracking-widest">Pesan sekarang</button>
           </div>
           </Link>
         </div>

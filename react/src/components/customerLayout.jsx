@@ -39,7 +39,7 @@ export default function customerLayout() {
       setCurrentUser({});
       setUserToken(null);
       setUserCredentials(null);
-      navigate('/login');
+      navigate('/');
     });
   };
 

@@ -110,41 +110,21 @@
           <table class="table table-hover mb-0">
             <thead>
               <tr>
-                <th>Kode Booking</th>
                 <th>Nama Pemesan</th>
+                <th>Email Pemesan</th>
                 <th>Layanan</th>
-                <th>Waktu Peminjaman</th>
+                <th>Jenis Layanan</th>
                 <th>Status</th>
               </tr>
             </thead>
             <tbody>
               @foreach($table as $key => $item)    
               <tr>                   
-                <td>{{ $item->kode_booking }}</td>
-                <td>{{ $item->user->name }}</td>
+                <td>{{ $item->nama_pemesan }}</td>
+                <td>{{ $item->user->email }}</td>
                 <td>{{ $item->layanan->nama_layanan }}</td>
-                <td>
-                  @if($item->layanan->price_type == 'perhari')
-                    <span class="badge badge-primary">Hari</span>
-                  @elseif($item->layanan->price_type == 'perjam')
-                    <span class="badge badge-primary">Jam</span>
-                  @elseif($item->layanan->price_type == 'perbulan')
-                    <span class="badge badge-primary">Bulan</span>
-                  @elseif($item->layanan->price_type == 'pertahun')
-                    <span class="badge badge-primary">Tahun</span>
-                  @endif
-                </td>
-                <td>
-                  @if($item->status == 'pending')
-                    <span class="badge badge-warning">Pending</span>
-                  @elseif($item->status == 'pembayaran berhasil')
-                    <span class="badge badge-primary">Pembayaran Berhasil</span>
-                  @elseif($item->status == 'mulai')
-                    <span class="badge badge-secondary">Mulai</span>
-                  @elseif($item->status == 'selesai')
-                    <span class="badge badge-danger">Selesai</span>
-                  @endif
-                </td>
+                <td>{{ $item->layanan->price_type }}</td>
+                <td>{{ $item->status }}</td>
               </tr>
               @endforeach
             </tbody>

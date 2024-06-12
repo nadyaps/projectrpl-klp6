@@ -21,10 +21,9 @@ export default function DetailArtikel() {
       <div className="max-w-screen-xl w-full text-center text-3xl md:text-4xl font-[BebasNeue] uppercase">{artikelItem.judul}</div>
       <div className="max-w-screen-xl w-full mt-8 flex flex-col md:flex-col justify-center items-center gap-8">
         <div className="w-full md:w-[50%] relative">
-          <div className="absolute inset-0 border-4 border-gray-200 rounded-lg"></div>
-          <img className="w-full h-auto rounded-lg" 
-             src = "../../public/assets/img/no_image.jpg"
-            // src={artikelItem.photo ? artikelItem.photo : '../../public/assets/img/no_image.jpg'} 
+          <div className="flex justify-center"></div>
+          <img className="rounded-lg shadow-lg " 
+            src = {artikelItem.photo}
             alt={artikelItem.judul} />
         </div>
         <div className="w-full md:w-[50%] flex flex-col justify-center items-center md:items-center gap-4">

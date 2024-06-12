@@ -47,7 +47,7 @@ class AuthController extends Controller
       ]);
   
       $remember = $request->boolean('remember');
-  
+      
       // Coba melakukan login
       if (!Auth::attempt($credentials, $remember)) {
           // Jika login gagal, kembalikan pesan error
@@ -56,6 +56,11 @@ class AuthController extends Controller
   
       // Jika login berhasil, dapatkan user yang terautentikasi
       $user = Auth::user();
+
+      if ($user) {
+        // Tambahkan URL gambar pada artikel yang ditemukan
+        $user->photo = $user->image_url;
+      }
       
       // Buat token untuk otorisasi
       $token = $user->createToken('main')->plainTextToken;
@@ -66,6 +71,7 @@ class AuthController extends Controller
           'user' => $user,  
       ]);
   }
+
   
   public function logout(Request $request)
   {
@@ -78,5 +84,10 @@ class AuthController extends Controller
         }
   }
 
-  
+  public function profile()
+  {
+    $user = Auth::user();
+    return response()->json(['data' => $user]);
+  }
+
 }

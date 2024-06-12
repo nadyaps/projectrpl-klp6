@@ -10,6 +10,7 @@ use App\Http\Controllers\PemesananController;
 //customer
 Route::middleware('auth:sanctum')->group(function() {
   Route::post('/logout', [AuthController::class, 'logout']);
+  Route::get('/profile', [AuthController::class, 'profile']);
 });
 
 //guest dan customer
@@ -24,6 +25,8 @@ Route::get('/layanan', [LayananController::class, 'index']);
 Route::get('/layanan/{id}', [LayananController::class, 'show']);
 Route::get('/layananlist', [LayananController::class, 'layananList']);
 
-Route::post('/pemesanan/{id}', [PemesananController::class, 'store']);
+Route::get('/keranjang', [PemesananController::class, 'index']);
+Route::post('/pemesanan', [PemesananController::class, 'store']);
+Route::get('/detailtransaksi/{id}', [PemesananController::class, 'show']);
 
 // require __DIR__.'/web.php';

@@ -59,6 +59,13 @@
             </div>
           </div>  
         </div>   
+
+        <!-- Buttons -->
+        <div class="d-flex justify-content-end w-full">
+          <a href="{{route('accept.pemesanan',  ['id' => $data->id])}}" class="btn btn-outline-primary btn-lg me-3">Konfirmasi Pembayaran</a>
+          <a href="{{route('reject.pemesanan',  ['id' => $data->id])}}" class="btn btn-outline-secondary btn-lg ">Batalkan</a>
+        </div>
+        
       </div>
     </div>
   </div>

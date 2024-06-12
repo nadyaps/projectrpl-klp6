@@ -35,10 +35,10 @@ export default function layanan() {
           {layanan.map((layananItem) => (// Slice the array to get only the first 3 articles
             <Link to={`/layanan/${layananItem.id}`} key={layananItem.id}>
               <div className="bg-white rounded-3xl shadow-md cursor-pointer">
-                <div className="bg-neutral-50 rounded-t-3xl overflow-hidden">
-                  <img className="w-full h-60 object-fit"
-                       src = "../../public/assets/img/no_image.jpg"
-                       // src={layananItem.photo ? layananItem.photo : '../../public/assets/img/no_image.jpg'}
+                <div className="w-full bg-neutral-50 rounded-t-3xl overflow-hidden">
+                  <img className="w-full h-60 object-cover"
+                      //  src = "../../public/assets/img/no_image.jpg"
+                       src={layananItem.image_url}
                        alt={layananItem.nama_layanan}/>
                 </div>
                 <div className="bg-white p-6 rounded-b-3xl">

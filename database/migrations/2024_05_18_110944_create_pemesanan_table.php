@@ -13,16 +13,15 @@ return new class extends Migration
     {
         Schema::create('pemesanan', function (Blueprint $table) {
             $table->id();
-            $table->string('kode_booking', 4)->unique();
             $table->foreignId('user_id')->index();
             $table->foreignId('layanan_id')->index();
+            $table->foreignId('harga_id')->index();
             $table->string('nama_pemesan');
-            $table->date('tanggal_pesan');
-            $table->dateTime('tanggal_mulai');
-            $table->dateTime('tanggal_berakhir');
+            $table->string('tanggal_mulai');
+            $table->string('tanggal_berakhir');
             $table->integer('jumlah_orang');
-            $table->string('metode_pembayaran');
-            $table->enum('status', ['pending','pembayaran berhasil','mulai', 'selesai']);
+            $table->enum('metode_pembayaran', ['e-wallet', 'transfer bank']);
+            $table->enum('status', ['pending','reject','approved','start', 'finish']);
             $table->timestamps();
         });
     }

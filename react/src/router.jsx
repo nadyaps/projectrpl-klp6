@@ -20,6 +20,7 @@ import Keranjang from './views/customer/keranjang';
 import AboutUsCus from './views/customer/aboutusCus';
 import Pemesanan from './views/customer/pemesanan';
 import DetailTransaksi from './views/customer/detailTransaksi';
+import Profile from './views/customer/profile';
 
 const router = createBrowserRouter([
   {
@@ -83,7 +84,7 @@ const router = createBrowserRouter([
         element: <Keranjang />,
       },
       {
-        path: '/detailTransaksi',
+        path: '/detailtransaksi/:id',
         element: <DetailTransaksi />,
       },
       {
@@ -94,7 +95,10 @@ const router = createBrowserRouter([
         path: '/pemesanan/:id',
         element: <Pemesanan />,
       },
-
+      {
+        path: '/profile',
+        element: <Profile />,
+      },
 
     ]
   },

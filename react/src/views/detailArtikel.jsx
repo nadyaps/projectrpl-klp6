@@ -23,8 +23,7 @@ export default function DetailArtikel() {
         <div className="w-full md:w-[50%] relative">
           <div className="absolute inset-0 border-4 border-gray-200 rounded-lg"></div>
           <img className="w-full h-auto rounded-lg" 
-             src = "../../public/assets/img/no_image.jpg"
-            // src={artikelItem.photo ? artikelItem.photo : '../../public/assets/img/no_image.jpg'} 
+            src = {artikelItem.photo}
             alt={artikelItem.judul} />
         </div>
         <div className="w-full md:w-[50%] flex flex-col justify-center items-center md:items-center gap-4">
