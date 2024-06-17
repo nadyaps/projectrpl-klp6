@@ -58,7 +58,7 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/admin/pending/{id}', [AdminController::class, 'AdminPendingPemesanan'])->name('pending.pemesanan');
     Route::get('/admin/pemesanan/delete/{id}', [AdminController::class, 'AdminDeletePemesanan'])->name('delete.pemesanan');
 
-    Route::get('/admin/pemesanan/export', [AdminController::class, 'PemesananExport'])->name('export.pemesanan');
+    Route::get('/pemesanan/export/', [AdminController::class, 'PemesananExport'])->name('export.pemesanan');
 
     Route::get('/admin/pemesanan/accept/{id}', [AcceptReject::class, 'AcceptRequest'])->name('accept.pemesanan');
     Route::get('/admin/pemesanan/reject/{id}', [AcceptReject::class, 'RejectRequest'])->name('reject.pemesanan');

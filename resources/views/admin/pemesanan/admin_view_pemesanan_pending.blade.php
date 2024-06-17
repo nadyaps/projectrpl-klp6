@@ -58,6 +58,16 @@
               <p class="text-muted">{{$data->status}}</p>
             </div>
           </div>  
+          <div>
+            <div class="mt-3">
+              <label class="tx-13 fw-bolder mb-0 text-uppercase">Layanan:</label>
+              <p class="text-muted">{{$data->layanan->nama_layanan}}</p>
+            </div>
+            <div class="mt-3">
+              <label class="tx-13 fw-bolder mb-0 text-uppercase">Jenis Layanan:</label>
+              <p class="text-muted">{{$data->layanan->price_type}}</p>
+            </div>
+          </div>  
         </div>   
 
         <!-- Buttons -->

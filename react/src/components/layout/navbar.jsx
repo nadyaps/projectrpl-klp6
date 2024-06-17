@@ -37,7 +37,7 @@ export default function Navbar() {
         onClick={() => handleLinkClick("/")}
       >
         <div className="text-neutral-700 text-[24px] md:text-[32px] font-medium font-['Plus Jakarta Sans'] uppercase leading-[50px] mr-10">
-          Logo
+          5.0
         </div>
       </a>
       <div className="hidden md:flex h-full justify-center items-center space-x-6 mx-4">
